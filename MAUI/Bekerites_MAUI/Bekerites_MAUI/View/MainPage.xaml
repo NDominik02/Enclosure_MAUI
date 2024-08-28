@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Bekerites_MAUI.MainPage"
+             Title="Bekerítés">
+    <Grid Margin="4" RowSpacing="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- A gombokat a képernyő tetejére helyezzük -->
+        <Button Text="Új játék" Command="{Binding NewGameCommand}" Grid.Row="0" HorizontalOptions="Start" />
+        <Button Text="Beállítások" Command="{Binding ExitCommand}" Grid.Row="0" HorizontalOptions="End" />
+
+        <Grid
+            Grid.Row="1"
+            BindableLayout.ItemsSource="{Binding Fields}"
+            RowDefinitions="{Binding GameTableRows}"
+            ColumnDefinitions="{Binding GameTableColumns}"
+            ColumnSpacing="4"
+            RowSpacing="4">
+            <!-- A játéktáblát egy sorfolytonos listával valósítjuk meg -->
+            <BindableLayout.ItemTemplate>
+                <DataTemplate>
+                    <!-- a rács elemei gombok lesznek -->
+                    <Button
+                        Grid.Row="{Binding Y}"
+                        Grid.Column="{Binding X}"
+                        Command="{Binding StepCommand}"
+                        CommandParameter="{Binding Number}"
+                        Padding="0"
+                        VerticalOptions="FillAndExpand"
+                        HorizontalOptions="FillAndExpand">
+                        <Button.Style>
+                            <Style TargetType="Button">
+                                <Style.Triggers>
+                                    <DataTrigger TargetType="Button" Binding="{Binding FieldColor}" Value="White">
+                                        <Setter Property="Background" Value="White" />
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Button" Binding="{Binding FieldColor}" Value="Red">
+                                        <Setter Property="Background" Value="Red" />
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Button" Binding="{Binding FieldColor}" Value="Blue">
+                                        <Setter Property="Background" Value="Blue" />
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Button" Binding="{Binding FieldColor}" Value="IndianRed">
+                                        <Setter Property="Background" Value="IndianRed" />
+                                    </DataTrigger>
+                                    <DataTrigger TargetType="Button" Binding="{Binding FieldColor}" Value="DeepSkyBlue">
+                                        <Setter Property="Background" Value="DeepSkyBlue" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Button.Style>
+                    </Button>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </Grid>
+
+        <Button
+            Text="Place"
+            Grid.Row="2"
+            Command="{Binding FinishMovement}"
+            />
+
+
+        <!-- az információkat alul írjuk ki -->
+        <HorizontalStackLayout HorizontalOptions="Start" Grid.Row="3">
+            <Label Text="Piros: " />
+            <Label Text="{Binding OccupiedAreaR}" />
+        </HorizontalStackLayout>
+        <HorizontalStackLayout HorizontalOptions="End" Grid.Row="3">
+            <Label Text="Kék: " />
+            <Label Text="{Binding OccupiedAreaB}" />
+        </HorizontalStackLayout>
+    </Grid>
+</ContentPage>

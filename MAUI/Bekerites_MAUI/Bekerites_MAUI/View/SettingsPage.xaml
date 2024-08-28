@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Bekerites_MAUI.View.SettingsPage"
+             Title="Beállítások">
+    <VerticalStackLayout Spacing="8" Margin="4" HorizontalOptions="CenterAndExpand">
+        <Button Command="{Binding LoadGameCommand}" Text="Betöltés" />
+        <Button Command="{Binding SaveGameCommand}" Text="Mentés"/>
+
+        <Picker
+            Title="Játékméret kiválasztása:"
+            HorizontalTextAlignment="Center"
+            ItemsSource="{Binding MapSizeLevels}"
+            ItemDisplayBinding="{Binding MapSizeText}"
+            SelectedItem="{Binding MapSize}"/>
+    </VerticalStackLayout>
+</ContentPage>
